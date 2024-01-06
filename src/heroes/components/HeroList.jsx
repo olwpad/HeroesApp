@@ -1,8 +1,13 @@
-import React from 'react'
-import { getHeroesByPublisher } from '../helpers/getHeroesByPublisher';
-export const HeroList = ({publisher}) => {
-    const heroes =getHeroesByPublisher();
+import React from "react";
+import { getHeroesByPublisher } from "../helpers/getHeroesByPublisher";
+import { HeroCard } from "./HeroCard";
+export const HeroList = ({ publisher }) => {
+  const heroes = getHeroesByPublisher(publisher);
   return (
-    <div>HeroList</div>
-  )
-}
+    <div>
+      {heroes.map((hero) => (
+        <HeroCard key={hero.id} {...hero} />
+      ))}
+    </div>
+  );
+};

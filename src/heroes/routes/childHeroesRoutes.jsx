@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom"
  
 export const childHeroesRoutes = [
     {
-        path: "/",
+        path: "/marvel",
         element: <MarvelPage/>
     },
     {
@@ -19,7 +19,7 @@ export const childHeroesRoutes = [
         element: <HeroPage/>
     },
     {
-        path: "/*",
+        path: "/",
         element: <Navigate to={"/marvel"}/>
     }
 ]
