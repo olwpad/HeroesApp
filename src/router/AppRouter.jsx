@@ -1,30 +1,35 @@
-import React from 'react'
-import {createBrowserRouter,Navigate,Route,RouterProvider,Routes} from 'react-router-dom'
-import { LoginPage } from '../auth'
-import { childHeroesRoutes } from '../heroes/routes/childHeroesRoutes'
-import { HeroesRoutes } from '../heroes'
+import { Route, Routes } from 'react-router-dom';
 
-const router=createBrowserRouter([
-  {
-   path:"/",
-   element:<HeroesRoutes/>,
-   errorElement:<Navigate to="/"/>,
-   children:childHeroesRoutes
-  },
-  {
-    path:"/login",
-    element:<LoginPage/>
-  }
-])
-
+import { HeroesRoutes } from '../heroes';
+import { LoginPage } from '../auth';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
 
 
 
 export const AppRouter = () => {
   return (
-   <>
+    <>
 
-   <RouterProvider router={router}/>
-   </>
-)
+        <Routes>
+            
+            <Route path="login/*" element={
+                <PublicRoute>
+                  <Routes>
+                    <Route path="/*" element={<LoginPage />} />
+                  </Routes>
+                </PublicRoute>
+              }
+            />
+            
+            
+            <Route path="/*" element={
+              <PrivateRoute>
+                <HeroesRoutes />
+              </PrivateRoute>
+            } />
+        </Routes>
+    
+    </>
+  )
 }
